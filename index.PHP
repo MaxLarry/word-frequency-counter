@@ -58,9 +58,9 @@
         echo "</table>";
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $text = $_POST["text"];
-        $sortOrder = $_POST["sort_order"];
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["text"])) {
+        $text = htmlspecialchars($_POST["text"]);
+        $sortOrder = ($_POST["sort_order"]);
         $displayLimit = (int)$_POST["display_limit"];
 
         // Tokenize the text
@@ -78,6 +78,8 @@
 
         // Display word frequency
         displayWordFrequency($wordFrequency, $sortOrder, $displayLimit);
+    }else {
+        echo "<p>Please add some text in the textarea.</p>";
     }
     ?>
 </body>
